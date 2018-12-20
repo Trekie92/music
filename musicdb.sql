@@ -2,6 +2,9 @@
 four tables for the actual music database.
 */
 
+#CREATE DATABASE music;
+#USE music;
+
 #User table
 CREATE TABLE user (
 user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -14,19 +17,22 @@ userrights CHAR(1) NOT NULL DEFAULT 'a'
 #Title table
 CREATE TABLE title (
 title_id INT AUTO_INCREMENT PRIMARY KEY,
-titlename VARCHAR(150)
+titlename VARCHAR(150),
+changedfrom VARCHAR(50)
 );
 
 #Album table
 CREATE TABLE album (
 album_id INT AUTO_INCREMENT PRIMARY KEY,
-albumname VARCHAR(150)
+albumname VARCHAR(150),
+changedfrom VARCHAR(50)
 );
 
 #Interpreter table
 CREATE TABLE interpreter (
 interpreter_id INT AUTO_INCREMENT PRIMARY KEY,
-interpretername VARCHAR(150)
+interpretername VARCHAR(150),
+changedfrom VARCHAR(50)
 );
 
 #Tracklist table
@@ -38,5 +44,6 @@ yearofpublic INT CHECK(yearofpublic > 1000 AND yearofpublic <= YEAR(curdate())),
 CONSTRAINT FOREIGN KEY (title_id) references title (title_id) ON DELETE RESTRICT,
 CONSTRAINT FOREIGN KEY (interpreter_id) references interpreter (interpreter_id) ON DELETE RESTRICT,
 CONSTRAINT FOREIGN KEY (album_id) references album (album_id) ON DELETE RESTRICT,
-PRIMARY KEY (title_id, interpreter_id, album_id, yearofpublic)
+PRIMARY KEY (title_id, interpreter_id, album_id, yearofpublic),
+changedfrom VARCHAR(50)
 );
